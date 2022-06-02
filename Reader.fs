@@ -62,6 +62,9 @@ and readForm (tokens: string list) : Result<Types.Form * string list, string> =
     match tokens with
     | [] -> Error "Nothing to do" // FIXME: Use pattern matching to prevent this
     | "(" :: rest -> readList rest
+    | "'" :: rest ->
+        readForm tokens
+        |> Result.map (fun (form, rest') -> Types.Quote form, rest')
     | atom :: rest -> (readAtom atom |> Types.Atom, rest) |> Ok
 
 let read program = tokenize program |> readForm
