@@ -8,4 +8,8 @@
     <Compile Include="Reader.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FsUnit.xUnit" Version="5.0.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
 </Project>
