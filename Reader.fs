@@ -52,15 +52,14 @@ let rec readList tokens =
         | [] -> Error "Unbalanced parentheses"
         | ")" :: rest -> Ok(List.rev elements |> Types.List, rest)
         | _ ->
-            match readForm tokens with
-            | Error e -> Error e
-            | Ok (elem, rest) -> readListAcc rest (elem :: elements)
+            readForm tokens
+            |> Result.bind (fun (elem, rest) -> readListAcc rest (elem :: elements))
 
     readListAcc tokens []
 
 and readForm (tokens: string list) : Result<Types.Form * string list, string> =
     match tokens with
-    | [] -> Error "Nothing to do" // FIXME: Use pattern matching to prevent this
+    | [] -> Error "Nothing to do"
     | "(" :: rest -> readList rest
     | "'" :: rest ->
         readForm tokens
