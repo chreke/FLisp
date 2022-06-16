@@ -6,7 +6,7 @@ let tokenize program : string list =
     let specialChars = @"[\[\]{}()'`~]"
     let stringLiteral = @"""(?:\\.|[^\\""])*""?"
     let comment = ";.*"
-    let regularChars = @"[^\s\[\]{}()'`~]"
+    let regularChars = @"[^\s\[\]{}()'`~]+"
 
     let regex =
         [ specialChars
