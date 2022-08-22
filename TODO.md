@@ -1,5 +1,7 @@
 # TODO
 
+- def
+- fn
 - Macros
   - Macro expansion needs to be performed before `eval`
 - Variadic function arguments
