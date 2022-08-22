@@ -7,8 +7,7 @@ let printAtom =
     | I i -> string i
     | F f -> string f
     | B b -> string b
-    | Symbol str -> str
-    // TODO: Escape special characters
+    | Symbol (Types.Symbol str) -> str
     | String str -> "\"" + str + "\""
     | Nil -> "nil"
 

@@ -2,6 +2,8 @@ module Reader
 
 open System.Text.RegularExpressions
 
+open Types
+
 let tokenize program : string list =
     let specialChars = @"[\[\]{}()'`~]"
     let stringLiteral = @"""(?:\\.|[^\\""])*""?"
@@ -37,33 +39,33 @@ let readString (str: string) =
 
 let readAtom str : Types.Atom =
     match str with
-    | Int i -> Types.I i
-    | Float f -> Types.F f
+    | Int i -> I i
+    | Float f -> F f
     | "true"
-    | "false" -> str <> "true" |> Types.B
-    | "Nil" -> Types.Nil
-    | str when str.StartsWith "\"" -> readString str |> Types.String
-    | str -> Types.Symbol str
+    | "false" -> str <> "true" |> B
+    | "Nil" -> Nil
+    | str when str.StartsWith "\"" -> readString str |> String
+    | str -> Symbol(Types.Symbol str)
 
 
 let rec readList tokens =
     let rec readListAcc tokens elements =
         match tokens with
         | [] -> Error "Unbalanced parentheses"
-        | ")" :: rest -> Ok(List.rev elements |> Types.List, rest)
+        | ")" :: rest -> Ok(List.rev elements |> List, rest)
         | _ ->
             readForm tokens
             |> Result.bind (fun (elem, rest) -> readListAcc rest (elem :: elements))
 
     readListAcc tokens []
 
-and readForm (tokens: string list) : Result<Types.Form * string list, string> =
+and readForm (tokens: string list) : Result<Form * string list, string> =
     match tokens with
     | [] -> Error "Nothing to do"
     | "(" :: rest -> readList rest
     | "'" :: rest ->
         readForm tokens
-        |> Result.map (fun (form, rest') -> Types.Quote form, rest')
-    | atom :: rest -> (readAtom atom |> Types.Atom, rest) |> Ok
+        |> Result.map (fun (form, rest') -> Quote form, rest')
+    | atom :: rest -> (readAtom atom |> Atom, rest) |> Ok
 
 let read program = tokenize program |> readForm
