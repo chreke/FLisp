@@ -68,4 +68,13 @@ and readForm (tokens: string list) : Result<Form * string list, string> =
         |> Result.map (fun (form, rest') -> Quote form, rest')
     | atom :: rest -> (readAtom atom |> Atom, rest) |> Ok
 
-let read program = tokenize program |> readForm
+let read program =
+    let rec readAcc tokens acc =
+        match tokens with
+        | [] -> Ok(List.rev acc)
+        | _ ->
+            match readForm tokens with
+            | Ok (form, remainingTokens) -> readAcc remainingTokens (form :: acc)
+            | Error e -> Error e
+
+    readAcc (tokenize program) []
