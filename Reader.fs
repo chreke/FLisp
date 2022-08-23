@@ -64,7 +64,7 @@ and readForm (tokens: string list) : Result<Form * string list, string> =
     | ")" :: _ -> Error "Unbalanced parentheses"
     | "(" :: rest -> readList rest
     | "'" :: rest ->
-        readForm tokens
+        readForm rest
         |> Result.map (fun (form, rest') -> Quote form, rest')
     | atom :: rest -> (readAtom atom |> Atom, rest) |> Ok
 
