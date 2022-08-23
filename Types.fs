@@ -2,10 +2,13 @@ module Types
 
 type Symbol = Symbol of string
 
-type Atom =
+type Number =
     | I of int
     | F of float
+
+type Atom =
     | B of bool
+    | Number of Number
     | Symbol of Symbol
     | String of string
     | Nil

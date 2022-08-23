@@ -39,8 +39,8 @@ let readString (str: string) =
 
 let readAtom str : Types.Atom =
     match str with
-    | Int i -> I i
-    | Float f -> F f
+    | Int i -> Number(I i)
+    | Float f -> Number(F f)
     | "true"
     | "false" -> str <> "true" |> B
     | "Nil" -> Nil

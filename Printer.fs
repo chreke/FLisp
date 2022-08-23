@@ -4,8 +4,7 @@ open Types
 
 let printAtom =
     function
-    | I i -> string i
-    | F f -> string f
+    | Number n -> string n
     | B b -> string b
     | Symbol (Types.Symbol str) -> str
     | String str -> "\"" + str + "\""
