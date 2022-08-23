@@ -10,7 +10,7 @@ let toNumber (form: Form) =
 let foldResults f values =
     let rec foldResultsAcc f values acc =
         match values with
-        | [] -> Ok acc
+        | [] -> Ok(List.rev acc)
         | x :: xs ->
             match f x with
             | Ok v -> foldResultsAcc f xs (v :: acc)
