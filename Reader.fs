@@ -40,9 +40,9 @@ let readString (str: string) =
 let readAtom str : Types.Atom =
     match str with
     | Float f -> Number f
-    | "true"
-    | "false" -> str <> "true" |> B
-    | "Nil" -> Nil
+    | "true" -> B true
+    | "false" -> B false
+    | "nil" -> Nil
     | str when str.StartsWith "\"" -> readString str |> String
     | str -> Symbol(Types.Symbol str)
 
