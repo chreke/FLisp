@@ -19,8 +19,8 @@ let foldResults f values =
     foldResultsAcc f values []
 
 let foldNumbers f values =
-    match foldResults toNumber values with
-    | Ok numbers -> Ok(Number(List.reduce f numbers))
-    | Error e -> Error e
+    foldResults toNumber values
+    |> Result.map (List.reduce f)
+    |> Result.map Number
 
 let add = foldNumbers (+)
