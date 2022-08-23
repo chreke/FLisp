@@ -1,5 +1,8 @@
 # TODO
 
+- Use a better testing library; xUnit is not very ergonomic
+- Get the CLI test runner working
+- Get debugging working in VSCode
 - def
 - fn
 - Macros
