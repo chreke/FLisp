@@ -61,6 +61,7 @@ let rec readList tokens =
 and readForm (tokens: string list) : Result<Form * string list, string> =
     match tokens with
     | [] -> Error "Nothing to do"
+    | ")" :: _ -> Error "Unbalanced parentheses"
     | "(" :: rest -> readList rest
     | "'" :: rest ->
         readForm tokens
