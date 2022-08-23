@@ -18,7 +18,7 @@ let printAtom =
 // TODO: Rewrite this to be tail recursive
 let rec print (form: Form) : string =
     match form with
-    | Quote form' -> "'" + print form
+    | Quote form' -> "'" + print form'
     | List forms ->
         "("
         + (forms |> List.map print |> String.concat " ")
