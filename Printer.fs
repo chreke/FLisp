@@ -15,12 +15,22 @@ let printAtom =
     | String str -> "\"" + str + "\""
     | Nil -> "nil"
 
-// TODO: Rewrite this to be tail recursive
-let rec print (form: Form) : string =
+// TODO: Write a tail-recursive list printer
+let rec print =
+    function
+    | Form f -> printForm f
+    | Function f -> "function"
+    | Builtin f -> "builtin"
+    | ValueList values ->
+        "("
+        + (values |> List.map print |> String.concat " ")
+        + ")"
+
+and printForm (form: Form) : string =
     match form with
-    | Quote form' -> "'" + print form'
+    | Quote form' -> "'" + printForm form'
+    | Atom (atom) -> printAtom atom
     | List forms ->
         "("
-        + (forms |> List.map print |> String.concat " ")
+        + (forms |> List.map printForm |> String.concat " ")
         + ")"
-    | Atom (atom) -> printAtom atom
