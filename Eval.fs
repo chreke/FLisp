@@ -2,19 +2,6 @@ module Eval
 
 open Types
 
-type Function = { Args: Symbol list; Body: Form }
-
-type SpecialForm =
-    | Def
-    | Fun
-    | Macro
-
-type Value =
-    | Form of Form
-    | Function of Function
-    | Builtin of (Value list -> Result<Value, string>)
-
-type Environment = Map<string, Value>
 
 let toResult error opt =
     match opt with
