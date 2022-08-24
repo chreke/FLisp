@@ -29,7 +29,9 @@ let ``read program and then print it back`` program =
 [<InlineData("true", "true")>]
 [<InlineData("'(1 2)", "(1 2)")>]
 [<InlineData("'foo", "foo")>]
-let ``evaluate values`` program expected =
+[<InlineData("(+ 1 2 3)", "6")>]
+[<InlineData("(+ 1 (+ 2 3))", "6")>]
+let ``evaluate expressions`` program expected =
     let eval = Eval.eval Eval.initEnvironment
 
     let actual =
