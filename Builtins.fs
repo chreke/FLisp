@@ -2,9 +2,9 @@ module Builtins
 
 open Types
 
-let toNumber (form: Form) =
+let toNumber (form: Value) =
     match form with
-    | Atom (Number n) -> Ok(n)
+    | Form (Atom (Number n)) -> Ok(n)
     | n -> Error $"{n} is not a number"
 
 let foldResults f values =
@@ -20,6 +20,6 @@ let foldResults f values =
 
 let foldNumbers f values =
     foldResults toNumber values
-    |> Result.map ((List.reduce f) >> Number)
+    |> Result.map ((List.reduce f) >> Number >> Atom >> Form)
 
-let add = foldNumbers (+)
+let add = Builtin(foldNumbers (+))
