@@ -20,7 +20,6 @@ let foldResults f values =
 
 let foldNumbers f values =
     foldResults toNumber values
-    |> Result.map (List.reduce f)
-    |> Result.map Number
+    |> Result.map ((List.reduce f) >> Number)
 
 let add = foldNumbers (+)
