@@ -11,7 +11,7 @@ let printAtom =
     function
     | Number n -> string n
     | B b -> printBool b
-    | Symbol (Types.Symbol str) -> str
+    | Symbol str -> str
     | String str -> "\"" + str + "\""
     | Nil -> "nil"
 

@@ -44,7 +44,7 @@ let readAtom str : Types.Atom =
     | "false" -> B false
     | "nil" -> Nil
     | str when str.StartsWith "\"" -> readString str |> String
-    | str -> Symbol(Types.Symbol str)
+    | str -> Symbol str
 
 
 let rec readList tokens =

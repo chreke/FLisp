@@ -14,7 +14,7 @@ type Value =
     | Function of Function
     | Builtin of (Value list -> Result<Value, string>)
 
-type Environment = Map<Symbol, Value>
+type Environment = Map<string, Value>
 
 let toResult error opt =
     match opt with

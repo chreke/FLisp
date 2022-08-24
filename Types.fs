@@ -1,11 +1,9 @@
 module Types
 
-type Symbol = Symbol of string
-
 type Atom =
     | B of bool
     | Number of float
-    | Symbol of Symbol
+    | Symbol of string
     | String of string
     | Nil
 
