@@ -1,10 +1,11 @@
 # TODO
 
+- Print values
 - Use a better testing library; xUnit is not very ergonomic
-- Get the CLI test runner working
 - Get debugging working in VSCode
-- def
+- def (have to return a new environment)
 - fn
+- if
 - Macros
   - Macro expansion needs to be performed before `eval`
 - Variadic function arguments
@@ -13,3 +14,6 @@
 - Tail-call optimization (possible to leverage F#'s built-in TCO?)
 
 # DONE
+
+- Unwrap Symbol - using "string" as environment keys is fine
+- Get the CLI test runner working (I just needed to run it in the right project 😛)
