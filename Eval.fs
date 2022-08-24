@@ -43,3 +43,5 @@ and evalBasicFun env f inputs =
     let { Args = args; Body = body } = f
     let stackFrame = List.zip args inputs |> Map
     eval (join env stackFrame) body
+
+let initEnvironment: Environment = Map [ ("+", Builtins.add) ]

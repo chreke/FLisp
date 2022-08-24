@@ -3,6 +3,11 @@ module Tests
 open System
 open Xunit
 
+let unlift =
+    function
+    | Ok v -> v
+    | Error e -> e
+
 [<Fact>]
 let ``My test`` () = Assert.True(true)
 
@@ -15,8 +20,21 @@ let ``My test`` () = Assert.True(true)
 [<InlineData("'(+ 1 2 3)")>]
 let ``read program and then print it back`` program =
     let result =
-        match Reader.read program with
-        | Ok tokens -> List.head tokens |> Printer.print
-        | Error e -> e
+        Reader.read program
+        |> Result.map (List.head >> Printer.printForm)
 
-    Assert.Equal(result, program)
+    Assert.Equal(unlift result, program)
+
+[<Theory>]
+[<InlineData("true", "true")>]
+[<InlineData("'(1 2)", "(1 2)")>]
+[<InlineData("'foo", "foo")>]
+let ``evaluate values`` program expected =
+    let eval = Eval.eval Eval.initEnvironment
+
+    let actual =
+        Reader.read program
+        |> Result.bind (List.head >> eval)
+        |> Result.map Printer.print
+
+    Assert.Equal(unlift actual, expected)
