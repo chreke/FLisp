@@ -23,7 +23,7 @@ let ``read program and then print it back`` program =
         Reader.read program
         |> Result.map (List.head >> Printer.printForm)
 
-    Assert.Equal(unlift result, program)
+    Assert.Equal(program, unlift result)
 
 [<Theory>]
 [<InlineData("true", "true")>]
