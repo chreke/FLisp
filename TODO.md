@@ -10,14 +10,13 @@
 - Variadic function arguments
   - Add "rest" argument
 - Throw on mismatch between provided args and args list
-- Tail-call optimization (possible to leverage F#'s built-in TCO?)
-
-# MAYBE
-
-- Pass around the environment explicitly instead of implicitly? E.g. `def`
-  implicitly adds something to the top level, but what if this was made explicit?
-- Make _everything_ `read`-able? E.g. function references and other things that
-  the reader can't handle in Clojure
+- Closures
+  - To get closures working I'll have to change how environment handling works.
+    If the closure captures the entire environment it effectively becomes
+    immutable; this means we can't update any definitions. So, in order to be
+    able to update definitions we we have to split it up into a lexical and
+    global environment. (Which might not be too terrible--split it up into a
+    record)
 
 # DONE
 
