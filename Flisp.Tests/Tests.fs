@@ -39,4 +39,4 @@ let ``evaluate expressions`` program expected =
         |> Result.bind (List.head >> eval)
         |> Result.map Printer.print
 
-    Assert.Equal(unlift actual, expected)
+    Assert.Equal(expected, unlift actual)
