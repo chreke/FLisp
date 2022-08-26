@@ -31,6 +31,7 @@ let ``read program and then print it back`` program =
 [<InlineData("'foo", "foo")>]
 [<InlineData("(+ 1 2 3)", "6")>]
 [<InlineData("(+ 1 (+ 2 3))", "6")>]
+[<InlineData("((fn (x) (+ 1 2 x)) 3)", "6")>]
 let ``evaluate expressions`` program expected =
     let eval = Eval.eval Eval.initEnvironment
 
