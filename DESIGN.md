@@ -36,3 +36,8 @@ Model the main process as a reduction over the environment + incoming commands
 
 - A.) No concurrency
 - B.) Run pure commands in parallell
+
+# References
+
+- Scheme special forms:
+  https://groups.csail.mit.edu/mac/ftpdir/scheme-7.4/doc-html/scheme_3.html
