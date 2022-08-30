@@ -26,6 +26,9 @@ let ``My test`` () = Assert.True(true)
 [<InlineData("\"foo\"")>]
 [<InlineData("(+ 1 2 3)")>]
 [<InlineData("'(+ 1 2 3)")>]
+// [<InlineData("\"foo\\nbar\"")>]
+// [<InlineData("\"foo\\\\\"")>]
+// [<InlineData("\"foo\\\"\"")>]
 let ``read program and then print it back`` program =
     let result =
         Reader.read program
