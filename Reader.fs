@@ -34,17 +34,23 @@ let (|Float|_|) (str: string) =
 
 
 let readString (str: string) =
-    // TODO: Handle unterminated strings
-    str[1 .. (String.length str) - 1]
+    match str[0], str[str.Length - 1] with
+    | '"', '"' when str.Length > 1 -> Ok str[1 .. (String.length str) - 2]
+    | _ -> Error $"Unterminated string literal {str}"
 
-let readAtom str : Types.Atom =
+let readAtom (str: string) =
     match str with
-    | Float f -> Number f
-    | "true" -> B true
-    | "false" -> B false
-    | "nil" -> Nil
-    | str when str.StartsWith "\"" -> readString str |> String
-    | str -> Symbol str
+    | str when str.StartsWith "\"" -> readString str |> Result.map String
+    | _ ->
+        let atom =
+            match str with
+            | Float f -> Number f
+            | "true" -> B true
+            | "false" -> B false
+            | "nil" -> Nil
+            | str -> Symbol str
+
+        Ok atom
 
 
 let rec readList tokens =
@@ -66,7 +72,9 @@ and readForm (tokens: string list) : Result<Form * string list, string> =
     | "'" :: rest ->
         readForm rest
         |> Result.map (fun (form, rest') -> Quote form, rest')
-    | atom :: rest -> (readAtom atom |> Atom, rest) |> Ok
+    | atom :: rest ->
+        readAtom atom
+        |> Result.map (fun a -> Atom a, rest)
 
 let read program =
     let rec readAcc tokens acc =
