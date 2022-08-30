@@ -13,11 +13,8 @@ let isOk =
     | Ok _ -> true
     | Error _ -> false
 
-
-
 [<Fact>]
 let ``My test`` () = Assert.True(true)
-
 
 [<Theory>]
 [<InlineData("true")>]
