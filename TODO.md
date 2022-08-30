@@ -1,6 +1,5 @@
 # TODO
 
-- def (have to return a new environment)
 - if
 - Closures
 - Handle string escape codes
@@ -13,6 +12,7 @@
 
 # DONE
 
+- def (have to return a new environment)
 - fn
 - Get debugging working in VSCode
 - Unwrap Symbol - using "string" as environment keys is fine
