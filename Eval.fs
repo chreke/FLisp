@@ -25,19 +25,12 @@ let lambda (forms: Form list) =
         |> Result.map ((fun x -> { Args = x; Body = body }) >> Function)
     | _ -> Error $"Invalid function expression: {forms}"
 
-let specialForms = Map [ ("fn", (fun _ forms -> lambda forms)) ]
-
 let toResult error opt =
     match opt with
     | Some a -> Ok a
     | None -> Error error
 
 let join m1 m2 = Map.foldBack Map.add m2 m1
-
-let (|SpecialForm|_|) (form) =
-    match form with
-    | Atom (Symbol sym) -> Map.tryFind sym specialForms
-    | _ -> None
 
 let rec eval (env: Environment) (form: Form) : Result<Value, string> =
     match form with
@@ -47,7 +40,7 @@ let rec eval (env: Environment) (form: Form) : Result<Value, string> =
     | Atom a -> Ok(Form(Atom a))
     | Quote form -> Ok(Form form)
     | List [] -> Ok(Form(List []))
-    | List (SpecialForm f :: rest) -> f env rest
+    | List (Atom (Symbol "fn") :: rest) -> lambda rest
     | List funList -> evalFun env funList
 
 and evalFun env funList =
