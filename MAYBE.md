@@ -1,7 +1,8 @@
 # MAYBE
 
 - Get Vim + CoC working with F#, see e.g.
-  https://github.com/fsharp/FsAutoComplete
+  https://github.com/fsharp/FsAutoComplete and
+  https://github.com/fsharp/FsAutoComplete/issues/583
 - Pass around the environment explicitly instead of implicitly? E.g. `def`
   implicitly adds something to the top level, but what if this was made explicit?
 - Make _everything_ `read`-able? E.g. function references and other things that
