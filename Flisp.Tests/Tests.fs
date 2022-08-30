@@ -53,12 +53,6 @@ let ``read an invalid program and return an Error result`` program =
 [<InlineData("(+ 1 2 3)", "6")>]
 [<InlineData("(+ 1 (+ 2 3))", "6")>]
 [<InlineData("((fn (x) (+ 1 2 x)) 3)", "6")>]
+[<InlineData("(def x 6) x", "6")>]
 let ``evaluate expressions`` program expected =
-    let eval = Eval.eval Eval.initEnvironment
-
-    let actual =
-        Reader.read program
-        |> Result.bind (List.head >> eval)
-        |> Result.map Printer.print
-
-    Assert.Equal(expected, unlift actual)
+    Assert.Equal(expected, Repl.repl program |> unlift)

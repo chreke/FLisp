@@ -9,6 +9,7 @@
     <Compile Include="Printer.fs" />
     <Compile Include="Reader.fs" />
     <Compile Include="Eval.fs" />
+    <Compile Include="Repl.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
