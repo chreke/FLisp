@@ -25,18 +25,16 @@ let lambda (forms: Form list) =
         |> Result.map ((fun x -> { Args = x; Body = body }) >> Function)
     | _ -> Error $"Invalid function expression: {forms}"
 
-let toResult error opt =
-    match opt with
-    | Some a -> Ok a
-    | None -> Error error
+let lookup key env =
+    match Map.tryFind key env with
+    | Some v -> Ok v
+    | None -> Error $"Undefined symbol: {key}"
 
 let join m1 m2 = Map.foldBack Map.add m2 m1
 
 let rec eval (env: Environment) (form: Form) : Result<Value, string> =
     match form with
-    | Atom (Symbol (sym)) ->
-        env.TryFind sym
-        |> toResult $"{sym} is not defined"
+    | Atom (Symbol (sym)) -> lookup sym env
     | Atom a -> Ok(Form(Atom a))
     | Quote form -> Ok(Form form)
     | List [] -> Ok(Form(List []))
