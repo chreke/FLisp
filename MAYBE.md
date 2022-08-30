@@ -1,5 +1,7 @@
 # MAYBE
 
+- Get Vim + CoC working with F#, see e.g.
+  https://github.com/fsharp/FsAutoComplete
 - Pass around the environment explicitly instead of implicitly? E.g. `def`
   implicitly adds something to the top level, but what if this was made explicit?
 - Make _everything_ `read`-able? E.g. function references and other things that
@@ -11,5 +13,5 @@
   reference to a list of symbols? (I guess this would eliminate the need for
   macros as a separate construct?)
 - Tail-call optimization
-    - Possible to leverage F#'s built-in TCO?
-    - Might not be worth it; maybe if it compiles to bytecode?
+  - Possible to leverage F#'s built-in TCO?
+  - Might not be worth it; maybe if it compiles to bytecode?
