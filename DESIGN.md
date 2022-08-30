@@ -18,8 +18,7 @@ In this version mutations are only allowed at the top level.
   the top level we can treat that as a special case.
 - Makes the code easier to reason about; if mutations can only happen at the
   top level you can be sure that the rest of the code is pure.
-- Makes it easier to identify pure commands, which is useful for
-    * The developer; looking at the first symbol should tell 
+- Makes it easier to identify pure commands
 - Transactions "for free"; since a single command can't update state in
   multiple places either the entire update will succeed or none of it will
 
@@ -30,7 +29,13 @@ In this version mutations are only allowed at the top level.
 #### Implementation
 
 Model the main process as a reduction over the environment + incoming commands
-(like a `gen_server`)
+(like a `gen_server`), where the "state" is the top-level environment. We can
+allow mutations in any scope, but they won't affect anything unless they're
+made at the top level.
+
+One issue is closures—if a closure captures the top-level environment there's
+no way to modify any definitions that it captured. However, maybe this isn't a
+problem and it falls into YAGNI territory.
 
 ## Concurrency
 
