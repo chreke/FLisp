@@ -52,4 +52,5 @@ let ``read an invalid program and return an Error result`` program =
 [<InlineData("((fn (x) (+ 1 2 x)) 3)", "6")>]
 [<InlineData("(def x 6) x", "6")>]
 let ``evaluate expressions`` program expected =
-    Assert.Equal(expected, Repl.repl program |> unlift)
+    let result = Repl.repl program
+    Assert.Equal(expected, Repl.repl program |> Result.map (v, _) -> v |> unlift)

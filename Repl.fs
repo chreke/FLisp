@@ -11,10 +11,10 @@ let evalDef env forms =
         |> Result.map (fun v -> Map.add name v env)
     | _ -> Error "def must be followed by a name and an expression"
 
-let repl program =
+let repl program environment =
     let rec replAcc forms env value =
         match forms with
-        | [] -> Ok value
+        | [] -> Ok(value, env)
         | List (Atom (Symbol "def") :: rest) :: forms' ->
             evalDef env rest
             |> Result.bind (fun env' -> replAcc forms' env' (Form(Atom Nil)))
@@ -23,5 +23,5 @@ let repl program =
             |> Result.bind (replAcc forms' env)
 
     Reader.read program
-    |> Result.bind (fun forms -> replAcc forms initEnvironment (Form(Atom Nil)))
-    |> Result.map Printer.print
+    |> Result.bind (fun forms -> replAcc forms environment (Form(Atom Nil)))
+    |> Result.map (fun (v, env) -> (Printer.print v), env)
